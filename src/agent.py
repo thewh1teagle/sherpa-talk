@@ -1,7 +1,7 @@
 import ollama
 from loguru import logger
 
-class ThinkModel:
+class Agent:
     def __init__(self, model = 'llama3.1') -> None:
         self.model = model
     

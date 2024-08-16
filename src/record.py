@@ -4,7 +4,7 @@ import os
 import sys
 from loguru import logger
 
-class MicRecognizer:
+class SpeechRecognizer:
     def __init__(self, silero_vad_model) -> None:
         self.silero_vad_model = silero_vad_model
     

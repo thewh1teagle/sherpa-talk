@@ -20,21 +20,21 @@ python3 src/main.py --silero-vad-model silero_vad.onnx
 """
 
 
-from record import MicRecognizer
+from record import SpeechRecognizer
 from transcribe import TextDecoder
 from speech import SpeechCreator
-from think import ThinkModel
+from agent import Agent
 import config
 
 def main():
-    mic_recognizer = MicRecognizer(config.silero_vad_model)
+    speech_recognizer = SpeechRecognizer(config.silero_vad_model)
     text_decoder = TextDecoder(encoder=config.whisper_encoder, decoder=config.whisper_decoder, tokens=config.whisper_tokens)
     speech_creator = SpeechCreator(vits_model=config.vits_model, vits_lexicon=config.vits_lexicon, vits_tokens=config.vits_tokens)
-    thinker = ThinkModel(model=config.think_model)        
+    agent = Agent(model=config.think_model)        
 
-    for speech in mic_recognizer.speech_iter(mic_sample_rate=config.sample_rate):
+    for speech in speech_recognizer.speech_iter(mic_sample_rate=config.sample_rate):
         text = text_decoder.get_text(config.sample_rate, speech)
-        answer = thinker.ask(prompt=text)
+        answer = agent.ask(prompt=text)
         speech_creator.create(answer, play=True) 
         
 
