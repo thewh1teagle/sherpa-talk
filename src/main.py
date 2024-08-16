@@ -1,0 +1,54 @@
+"""
+1. Download Ollama from https://ollama.com/download and prepare tinyllama
+ollama run tinyllama
+
+3. Prepare sherpa models
+wget https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx
+wget https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-whisper-small.en.tar.bz2
+tar xf sherpa-onnx-whisper-small.en.tar.bz2
+
+mkdir vits-ljs
+wget https://huggingface.co/csukuangfj/vits-ljs/resolve/main/vits-ljs.onnx -O vits-ljs/vits-ljs.onnx
+wget https://huggingface.co/csukuangfj/vits-ljs/resolve/main/lexicon.txt -O vits-ljs/lexicon.txt
+wget https://huggingface.co/csukuangfj/vits-ljs/resolve/main/tokens.txt -O vits-ljs/tokens.txt
+
+4. Execute the program
+python3 src/main.py --silero-vad-model silero_vad.onnx
+"""
+
+
+from record import MicRecognizer
+from transcribe import TextDecoder
+from speech import SpeechCreator
+from think import ThinkModel
+
+
+def main():
+    # Silero VAD
+    silero_vad_model = 'silero_vad.onnx'
+    # Whisper
+    whisper_encoder = 'sherpa-onnx-whisper-small.en/small.en-encoder.int8.onnx'
+    whisper_decoder = 'sherpa-onnx-whisper-small.en/small.en-decoder.int8.onnx'
+    whisper_tokens = 'sherpa-onnx-whisper-small.en/small.en-tokens.txt'
+    
+    # Vits
+    vits_model = 'vits-ljs/vits-ljs.onnx'
+    vits_lexicon = 'vits-ljs/lexicon.txt'
+    vits_tokens = 'vits-ljs/tokens.txt'
+    
+    # General
+    sample_rate = 16000
+
+    mic_recognizer = MicRecognizer(silero_vad_model)
+    text_decoder = TextDecoder(encoder=whisper_encoder, decoder=whisper_decoder, tokens=whisper_tokens)
+    speech_creator = SpeechCreator(vits_model=vits_model, vits_lexicon=vits_lexicon, vits_tokens=vits_tokens)
+    thinker = ThinkModel(model='tinyllama')        
+
+    for speech_samples in mic_recognizer.get_speech(mic_sample_rate=sample_rate):
+        text = text_decoder.get_text(sample_rate, speech_samples)
+        answer = thinker.ask(prompt=text)
+        speech_creator.create(answer, play=True) 
+        
+
+if __name__ == "__main__":
+    main()
