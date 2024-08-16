@@ -74,8 +74,7 @@ class SpeechRecognizer:
                         printed = False
 
                     while not vad.empty():
-                        
-                        samples = vad.front.samples
+                        samples: list[float] = vad.front.samples
                         yield samples
 
                         vad.pop()
