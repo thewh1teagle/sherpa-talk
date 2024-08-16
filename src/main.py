@@ -1,6 +1,6 @@
 """
-1. Download Ollama from https://ollama.com/download and prepare tinyllama
-ollama run tinyllama
+1. Download Ollama from https://ollama.com/download and prepare llama3.1
+ollama run llama3.1
 
 3. Prepare sherpa models
 wget https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx

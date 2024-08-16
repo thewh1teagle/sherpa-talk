@@ -14,4 +14,4 @@ vits_tokens = 'vits-ljs/tokens.txt'
 sample_rate = 16000
 
 # Ollama
-think_model = 'tinyllama'
+think_model = 'llama3.1'

@@ -2,7 +2,7 @@ import ollama
 from loguru import logger
 
 class ThinkModel:
-    def __init__(self, model = 'tinyllama') -> None:
+    def __init__(self, model = 'llama3.1') -> None:
         self.model = model
     
     def ask(self, prompt: str) -> str:
