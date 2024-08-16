@@ -47,8 +47,8 @@ def main():
     speech_creator = SpeechCreator(vits_model=vits_model, vits_lexicon=vits_lexicon, vits_tokens=vits_tokens)
     thinker = ThinkModel(model='tinyllama')        
 
-    for speech_samples in mic_recognizer.get_speech(mic_sample_rate=sample_rate):
-        text = text_decoder.get_text(sample_rate, speech_samples)
+    for speech in mic_recognizer.speech_iter(mic_sample_rate=sample_rate):
+        text = text_decoder.get_text(sample_rate, speech)
         answer = thinker.ask(prompt=text)
         speech_creator.create(answer, play=True) 
         

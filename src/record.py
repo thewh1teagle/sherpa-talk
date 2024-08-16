@@ -8,7 +8,7 @@ class MicRecognizer:
     def __init__(self, silero_vad_model) -> None:
         self.silero_vad_model = silero_vad_model
     
-    def get_speech(self, mic_sample_rate = 16000):
+    def speech_iter(self, mic_sample_rate = 16000):
         if "SHERPA_ONNX_MIC_SAMPLE_RATE" in os.environ:
             mic_sample_rate = int(os.environ.get("SHERPA_ONNX_MIC_SAMPLE_RATE"))
             logger.info(f"Change microphone sample rate to {mic_sample_rate}")
