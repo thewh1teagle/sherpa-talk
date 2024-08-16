@@ -24,31 +24,16 @@ from record import MicRecognizer
 from transcribe import TextDecoder
 from speech import SpeechCreator
 from think import ThinkModel
-
+import config
 
 def main():
-    # Silero VAD
-    silero_vad_model = 'silero_vad.onnx'
-    # Whisper
-    whisper_encoder = 'sherpa-onnx-whisper-small.en/small.en-encoder.int8.onnx'
-    whisper_decoder = 'sherpa-onnx-whisper-small.en/small.en-decoder.int8.onnx'
-    whisper_tokens = 'sherpa-onnx-whisper-small.en/small.en-tokens.txt'
-    
-    # Vits
-    vits_model = 'vits-ljs/vits-ljs.onnx'
-    vits_lexicon = 'vits-ljs/lexicon.txt'
-    vits_tokens = 'vits-ljs/tokens.txt'
-    
-    # General
-    sample_rate = 16000
+    mic_recognizer = MicRecognizer(config.silero_vad_model)
+    text_decoder = TextDecoder(encoder=config.whisper_encoder, decoder=config.whisper_decoder, tokens=config.whisper_tokens)
+    speech_creator = SpeechCreator(vits_model=config.vits_model, vits_lexicon=config.vits_lexicon, vits_tokens=config.vits_tokens)
+    thinker = ThinkModel(model=config.think_model)        
 
-    mic_recognizer = MicRecognizer(silero_vad_model)
-    text_decoder = TextDecoder(encoder=whisper_encoder, decoder=whisper_decoder, tokens=whisper_tokens)
-    speech_creator = SpeechCreator(vits_model=vits_model, vits_lexicon=vits_lexicon, vits_tokens=vits_tokens)
-    thinker = ThinkModel(model='tinyllama')        
-
-    for speech in mic_recognizer.speech_iter(mic_sample_rate=sample_rate):
-        text = text_decoder.get_text(sample_rate, speech)
+    for speech in mic_recognizer.speech_iter(mic_sample_rate=config.sample_rate):
+        text = text_decoder.get_text(config.sample_rate, speech)
         answer = thinker.ask(prompt=text)
         speech_creator.create(answer, play=True) 
         
