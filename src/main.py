@@ -12,7 +12,10 @@ wget https://huggingface.co/csukuangfj/vits-ljs/resolve/main/vits-ljs.onnx -O vi
 wget https://huggingface.co/csukuangfj/vits-ljs/resolve/main/lexicon.txt -O vits-ljs/lexicon.txt
 wget https://huggingface.co/csukuangfj/vits-ljs/resolve/main/tokens.txt -O vits-ljs/tokens.txt
 
-4. Execute the program
+4. Install dependencies
+pip install -r requirements.txt
+
+5. Execute the program
 python3 src/main.py --silero-vad-model silero_vad.onnx
 """
 
