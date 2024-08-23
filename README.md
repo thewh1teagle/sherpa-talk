@@ -21,7 +21,9 @@ sudo apt-get install libportaudio2
 
 2. Prepare models
 wget https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx
-wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin
+wget https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin
+
+wget https://huggingface.co/unsloth/gemma-2-it-GGUF/resolve/main/gemma-2-2b-it.q2_k.gguf
 
 mkdir vits-ljs
 wget https://huggingface.co/csukuangfj/vits-ljs/resolve/main/vits-ljs.onnx -O vits-ljs/vits-ljs.onnx

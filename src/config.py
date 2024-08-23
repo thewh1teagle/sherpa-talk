@@ -1,7 +1,7 @@
 # Silero VAD
 silero_vad_model = 'silero_vad.onnx'
 # Whisper
-whisper_model_path = 'ggml-medium.bin'
+whisper_model_path = 'ggml-tiny.bin'
 
 # Vits
 vits_model = 'vits-ljs/vits-ljs.onnx'
@@ -12,4 +12,4 @@ vits_tokens = 'vits-ljs/tokens.txt'
 sample_rate = 16000
 
 # Ollama
-think_model_path = 'gemma-1.1-7b-it.Q4_K_M.gguf'
+think_model_path = 'gemma-2-2b-it.q2_k.gguf'
