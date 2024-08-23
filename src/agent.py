@@ -11,13 +11,13 @@ class Agent:
         )
     
     def ask(self, prompt: str) -> str:
-        logger.debug(f'Asking {prompt}')
+        logger.debug(f'Asking: {prompt}')
         response = self.model(
-            f"Q: {prompt} A: ", # Prompt
-            max_tokens=32, # Generate up to 32 tokens, set to None to generate up to the end of the context window
-            stop=["Q:", "\n"], # Stop generating just before the model would generate a new question
-            echo=True # Echo the prompt back in the output
-        ) # Generate a completion, can also call create_completion
-        text = response['choices'][0]["text"]
-        logger.debug(f'Answer is {text}')
+            f"Question: {prompt}\nAnswer:", # Updated prompt format
+            max_tokens=32, # Increased token limit
+            stop=["\n"], # Adjusted stop sequence
+            echo=False, # Do not echo the prompt
+        )
+        text = response['choices'][0]["text"].strip()
+        logger.debug(f'Answer is: {text}')
         return text

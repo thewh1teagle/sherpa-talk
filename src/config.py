@@ -12,4 +12,4 @@ vits_tokens = 'vits-ljs/tokens.txt'
 sample_rate = 16000
 
 # Ollama
-think_model_path = 'gemma-2-2b-it.q2_k.gguf'
+think_model_path = 'qwen2-1_5b-instruct-q4_0.gguf'
