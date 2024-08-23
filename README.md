@@ -31,8 +31,9 @@ wget https://huggingface.co/csukuangfj/vits-ljs/resolve/main/tokens.txt -O vits-
 3. Install dependencies
 
 ```console
-CMAKE_ARGS="-DGGML_VULKAN=on" pip install llama-cpp-python
-CMAKE_ARGS="-DGGML_VULKAN=ON GGML_CCACHE=OFF" pip install git+https://github.com/thewh1teagle/pywhispercpp@feat/vulkan
+CMAKE_ARGS="-DGGML_VULKAN=ON" pip install llama-cpp-python
+git clone --recursive https://github.com/thewh1teagle/pywhispercpp -b feat/vulkan
+CMAKE_ARGS="-DGGML_VULKAN=ON GGML_CCACHE=OFF" pip install ./pywhispercpp
 pip install -r requirements.txt
 ```
 
