@@ -3,6 +3,7 @@ import sounddevice as sd
 import os
 import sys
 from loguru import logger
+import numpy as np
 
 class SpeechRecognizer:
     def __init__(self, silero_vad_model) -> None:
@@ -75,7 +76,7 @@ class SpeechRecognizer:
 
                     while not vad.empty():
                         samples: list[float] = vad.front.samples
-                        yield samples
+                        yield np.array(samples)
 
                         vad.pop()
         except KeyboardInterrupt:

@@ -1,22 +1,11 @@
-import sherpa_onnx
+from pywhispercpp.model import Model
+import numpy as np
 
 class TextDecoder:
-    def __init__(self, encoder, decoder, tokens) -> None:
-        self.recognizer = sherpa_onnx.OfflineRecognizer.from_whisper(
-         encoder=encoder,
-         decoder=decoder,
-         tokens=tokens,
-         num_threads=1,
-         decoding_method='greedy_search',
-         debug=False,
-         language='en',
-         task='transcribe',
-         tail_paddings=-1   
-        )
-    def get_text(self, sample_rate, samples):
-        s = self.recognizer.create_stream()
-        s.accept_waveform(sample_rate, samples)
-        self.recognizer.decode_stream(s)
-        return s.result.text
-        
+    def __init__(self, model_path: str) -> None:
+        self.model = Model(model_path)
+    def get_text(self, _sample_rate, samples: np.array):
+        segments = self.model.transcribe(samples)
+        text = ' '.join(s.text for s in segments)
+        return text
         

@@ -2,3 +2,7 @@ sherpa-onnx-*-*
 *.onnx
 venv/
 vits-ljs/
+*.gguf
+*.bin
+*.pyc
+__pycache__
