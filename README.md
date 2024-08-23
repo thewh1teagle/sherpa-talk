@@ -37,4 +37,7 @@ pip install -r requirements.txt
 ```
 
 4. Execute the program
-python3 src/main.py --silero-vad-model silero_vad.onnx
+
+```console
+python3 src/main.py
+```
