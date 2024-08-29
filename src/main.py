@@ -13,6 +13,8 @@ def main():
 
     for speech in speech_recognizer.speech_iter(mic_sample_rate=config.sample_rate):
         text = text_decoder.get_text(config.sample_rate, speech)
+        if not text:
+            continue
         answer = agent.ask(prompt=text)
         speech_creator.create(answer, play=True) 
         
