@@ -1,3 +1,6 @@
+"""
+Todo: use audio loudness normalization
+"""
 import sherpa_onnx
 import sounddevice as sd
 import os
