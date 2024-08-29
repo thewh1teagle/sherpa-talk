@@ -35,8 +35,7 @@ wget https://huggingface.co/Qwen/Qwen2-1.5B-Instruct-GGUF/resolve/main/qwen2-1_5
 ```console
 pip install --upgrade pip setuptools
 CMAKE_ARGS="-DGGML_VULKAN=ON" pip install llama-cpp-python
-git clone --recursive https://github.com/thewh1teagle/pywhispercpp -b feat/vulkan
-CMAKE_ARGS="-DGGML_VULKAN=ON GGML_CCACHE=OFF" pip install ./pywhispercpp
+CMAKE_ARGS="-DGGML_VULKAN=ON" pip install git+https://github.com/abdeladim-s/pywhispercpp
 pip install -r requirements.txt
 ```
 
